@@ -19,6 +19,7 @@ class SimpleBomberman : public BomberMan {
 	b2Body * m_body;
 	SimpleBomberManState * m_bombs;
 	SimpleBomberManState * m_state;
+	Bomb * m_lastBomb;
 	double m_base_velocity;
 
 public:
@@ -32,7 +33,7 @@ public:
 
 	const b2Vec2 velocity() const { return m_body->GetLinearVelocity(); }
 	double baseVelocity() const { return m_base_velocity; }
-	void receiveBomb();
+	void bombExploded(Bomb*b);
 };
 
 } /* namespace bg */

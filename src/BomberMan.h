@@ -20,7 +20,7 @@ public:
 	virtual ~BomberMan(){}
 	virtual bool dropBomb() = 0;
 	virtual void handleInput(const Input& input) = 0;
-	virtual void receiveBomb() = 0;
+	virtual void bombExploded(Bomb*b) = 0;
 };
 
 } /* namespace bg */

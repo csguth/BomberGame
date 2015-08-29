@@ -18,7 +18,7 @@ SimpleBomb::~SimpleBomb() {
 void SimpleBomb::explode() {
 	std::cout << "Boom!!" << std::endl;
 	m_cell->bombExploded(this);
-	m_owner.receiveBomb();
+	m_owner.bombExploded(this);
 }
 
 SimpleBomb::SimpleBomb(b2World & world, BomberMan & owner,
@@ -36,6 +36,8 @@ SimpleBomb::SimpleBomb(b2World & world, BomberMan & owner,
 	boxFixtureDef.shape = &circleShape;
 	boxFixtureDef.density = 1;
 	m_body->CreateFixture(&boxFixtureDef);
+	m_body->GetFixtureList()->SetSensor(true);
+
 
 }
 
@@ -55,6 +57,10 @@ void SimpleBomb::draw(sf::RenderWindow& window) const {
 
 b2Vec2 SimpleBomb::position() const {
 	return m_body->GetPosition();
+}
+
+void SimpleBomb::enableCollision() {
+	m_body->GetFixtureList()->SetSensor(false);
 }
 
 } /* namespace bg */

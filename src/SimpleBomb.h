@@ -28,6 +28,8 @@ public:
 	Entity* update();
 	void draw(sf::RenderWindow & window) const;
 	b2Vec2 position() const;
+
+	virtual void enableCollision();
 };
 
 } /* namespace bg */

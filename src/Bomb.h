@@ -22,6 +22,8 @@ public:
 	virtual void explode() = 0;
 	virtual b2Vec2 position() const = 0;
 	void cell(Cell* cell) { m_cell = cell; }
+
+	virtual void enableCollision() = 0;
 };
 
 } /* namespace bg */

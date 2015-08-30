@@ -20,7 +20,7 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(arena.columns()*configs->cellSizeInPixels(), arena.rows()*configs->cellSizeInPixels()), "Bomber Game!");
 	window.setFramerateLimit(60);
 	sf::View view1;
-	view1.setCenter(static_cast<float>(arena.columns()*configs->worldToScreenScaleFactor())/2.f, -static_cast<float>(arena.rows()*configs->worldToScreenScaleFactor())/2.f);
+	view1.setCenter(arena.columns()*configs->cellSizeInPixels()/2.f, -static_cast<float32>(arena.rows())*configs->cellSizeInPixels()/2.f);
 	view1.setSize(arena.columns()*configs->cellSizeInPixels(), arena.rows()*configs->cellSizeInPixels());
 	window.setView(view1);
 	bg::BomberMan * player1 = bg::BombGame::instance()->createBomberMan();

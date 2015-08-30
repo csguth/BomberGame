@@ -10,18 +10,28 @@
 namespace bg {
 
 Arena::Arena(b2World & world, std::size_t r, std::size_t c) :
-						m_cells(r, std::vector<Cell>(c)) {
-	m_walls.reserve(4);
-	m_walls.emplace_back(world, b2Vec2(columns() / 2, 0.f),
-			b2Vec2(columns() / 2, 1.f / 2.f));
-	m_walls.emplace_back(world, b2Vec2(columns() / 2, rows()),
-			b2Vec2(columns() / 2, 1.f / 2.f));
+				m_cells(r, std::vector<Cell>(c)) {
+	m_walls.reserve(100);
+	m_walls.emplace_back(world,
+			b2Vec2(static_cast<float32>(columns()) / 2.f, 0.f),
+			b2Vec2(static_cast<float32>(columns()) / 2.f, 1.f / 2.f));
+	m_walls.emplace_back(world,
+			b2Vec2(static_cast<float32>(columns()) / 2.f,
+					static_cast<float32>(rows())),
+					b2Vec2(static_cast<float32>(columns()) / 2.f, 1.f / 2.f));
 
-	m_walls.emplace_back(world, b2Vec2(0.f, rows() / 2.f),
-			b2Vec2(1.f / 2, rows() / 2.f));
-
-	m_walls.emplace_back(world, b2Vec2(columns(), rows() / 2.f),
-			b2Vec2(1.f / 2, rows() / 2.f));
+	m_walls.emplace_back(world,
+			b2Vec2(0.f, static_cast<float32>(rows()) / 2.f),
+			b2Vec2(1.f / 2.f, static_cast<float32>(rows()) / 2.f));
+	m_walls.emplace_back(world,
+			b2Vec2(static_cast<float32>(columns()), static_cast<float32>(rows()) / 2.f),
+			b2Vec2(1.f / 2.f, static_cast<float32>(rows()) / 2.f));
+	//
+	for (float32 i = 2; i < rows(); i += 2.f) {
+		for(float32 j = 2; j < columns(); j+=2.f)
+			m_walls.emplace_back(world, b2Vec2(j, i), b2Vec2(.5f, .5f));
+	}
+	//	m_walls.shrink_to_fit();
 }
 
 Arena::~Arena() {

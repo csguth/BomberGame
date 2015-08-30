@@ -13,6 +13,7 @@
 namespace bg {
 
 SimpleBomb::~SimpleBomb() {
+	m_body->GetWorld()->DestroyBody(m_body);
 }
 
 void SimpleBomb::explode() {
@@ -31,7 +32,7 @@ SimpleBomb::SimpleBomb(b2World & world, BomberMan & owner,
 	bodyDef.angle = 0;
 	m_body = world.CreateBody(&bodyDef);
 	b2CircleShape circleShape;
-	circleShape.m_radius = 0.5f;
+	circleShape.m_radius = 0.4f;
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &circleShape;
 	boxFixtureDef.density = 1;

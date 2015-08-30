@@ -24,7 +24,8 @@ sf::Vector2f b2DSFMLRenderWindowDrawer::b2Vec2tosfVec2f(b2Vec2 currentVertex) {
 	return screenCoord;
 }
 
-void b2DSFMLRenderWindowDrawer::draw(b2Body& body, const sf::Color fillColor, sf::RenderWindow& window) {
+void b2DSFMLRenderWindowDrawer::draw(b2Body& body, const sf::Color fillColor,
+		sf::RenderWindow& window) {
 	b2Shape::Type type = body.GetFixtureList()->GetShape()->m_type;
 	if (type == b2Shape::e_polygon) {
 		b2PolygonShape* shape =
@@ -40,13 +41,12 @@ void b2DSFMLRenderWindowDrawer::draw(b2Body& body, const sf::Color fillColor, sf
 		}
 		polygon.setFillColor(fillColor);
 		window.draw(polygon);
-	}
-	else if(type == b2Shape::e_circle)
-	{
+	} else if (type == b2Shape::e_circle) {
 		b2CircleShape* shape =
 				static_cast<b2CircleShape*>(body.GetFixtureList()->GetShape());
 		sf::CircleShape circle;
-		float32 radius = (shape->m_radius*VideoConfiguration::instance()->worldToScreenScaleFactor());
+		float32 radius = (shape->m_radius
+				* VideoConfiguration::instance()->worldToScreenScaleFactor());
 		sf::Vector2f position = b2Vec2tosfVec2f(body.GetPosition());
 		position.x -= radius;
 		position.y -= radius;

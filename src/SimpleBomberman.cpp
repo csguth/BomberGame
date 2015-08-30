@@ -18,17 +18,17 @@
 namespace bg {
 
 SimpleBomberman::SimpleBomberman(b2World & world, const b2Vec2 position) :
-		m_body(nullptr), m_bombs(
-				new CarryingBombs(new SimpleBombermanStandingState, 1)), m_state(
-				new WalkableSimpleBomberMan(m_bombs)), m_lastBomb(nullptr), m_base_velocity(
-				5.f) {
+				m_body(nullptr), m_bombs(
+						new CarryingBombs(new SimpleBombermanStandingState, 1)), m_state(
+								new WalkableSimpleBomberMan(m_bombs)), m_lastBomb(nullptr), m_base_velocity(
+										5.f) {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position = position;
 	bodyDef.angle = 0;
 	m_body = world.CreateBody(&bodyDef);
 	b2PolygonShape boxShape;
-	boxShape.SetAsBox(1.f / 2.f, 1.f / 2.f);
+	boxShape.SetAsBox(.3f, .3f);
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &boxShape;
 	boxFixtureDef.density = 1;
@@ -56,13 +56,14 @@ void SimpleBomberman::handleInput(const Input& input) {
 
 Entity* SimpleBomberman::update() {
 	m_state = m_state->update(*this);
+	const b2Vec2 bomberManPosition = m_body->GetPosition();
+	std::size_t bomberManColumn = static_cast<std::size_t>(bomberManPosition.x);
+	std::size_t bomberManRow = static_cast<std::size_t>(bomberManPosition.y);
+	std::cout << bomberManRow << ", " << bomberManColumn << std::endl;
 	if (m_lastBomb) {
 		const b2Vec2 lastBombPosition = m_lastBomb->position();
 		std::size_t lastBombColumn = static_cast<std::size_t>(lastBombPosition.x);
 		std::size_t lastBombRow = static_cast<std::size_t>(lastBombPosition.y);
-		const b2Vec2 bomberManPosition = m_body->GetPosition();
-		std::size_t bomberManColumn = static_cast<std::size_t>(bomberManPosition.x);
-		std::size_t bomberManRow = static_cast<std::size_t>(bomberManPosition.y);
 		if(bomberManColumn != lastBombColumn || bomberManRow != lastBombRow)
 		{
 			m_lastBomb->enableCollision();

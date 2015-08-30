@@ -7,6 +7,7 @@
 
 #include "BombGame.h"
 #include "SimpleBomberman.h"
+#include <iostream>
 
 namespace bg {
 
@@ -27,14 +28,14 @@ BombGame* BombGame::instance() {
 }
 
 BomberMan* BombGame::createBomberMan() {
-	BomberMan * bm = new SimpleBomberman(m_world, b2Vec2(5.f, 5.f));
+	BomberMan * bm = new SimpleBomberman(m_world, b2Vec2(1.f, 1.f));
 	m_entities.push_back(bm);
 	return bm;
 }
 
 void BombGame::step() {
 	std::deque<Entity*> nextRound;
-
+	std::cout << m_entities.size() << " entities" << std::endl;
 	while(!m_entities.empty())
 	{
 		Entity* entity = m_entities.front();

@@ -17,9 +17,9 @@ public:
 	virtual ~VideoConfiguration();
 	static VideoConfiguration* instance();
 
-	const int cellSizeInPixels() const { return 64; }
+	const int cellSizeInPixels() const { return 16; }
 	const int numCells() const { return 16; }
-	const float worldToScreenScaleFactor() const { return 60.f; }
+	const float worldToScreenScaleFactor() const { return 16.f; }
 };
 
 } /* namespace bg */
